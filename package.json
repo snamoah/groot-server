@@ -26,5 +26,8 @@
     "lint": "eslint lib",
     "start": "npm run compile && node dist/index.js"
   },
-  "main": "./dist/lib"
+  "engines": {
+    "node": "6.9.2"
+  },
+  "main": "./dist/index.js"
 }
