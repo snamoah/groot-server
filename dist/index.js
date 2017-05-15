@@ -35,14 +35,31 @@ server.use(_restify2.default.CORS({
 server.use(_restify2.default.bodyParser());
 server.use(_restify2.default.queryParser());
 
-server.post('/download', function (req, res, next) {
+server.post('/fetch/file', function (req, res, next) {
   var url = req.body.url;
   handleRequest(url, req, res, next);
 });
 
-server.get('/download', function (req, res, next) {
+server.get('/fetch/file', function (req, res, next) {
   var url = req.query.url;
   handleRequest(url, req, res, next);
+});
+
+/**
+ *
+ * Get request for downloading file
+ */
+server.get('/download', function (req, res, next) {
+  var url = req.query.url;
+  var type = req.query.type;
+  var filename = req.query.filename;
+
+  res.writeHead(200, {
+    'Content-Type': type + '/*',
+    'Content-Disposition': 'attachment; filename=' + filename
+  });
+
+  _request2.default.get(url).pipe(res);
 });
 
 // server listening on port 8080
