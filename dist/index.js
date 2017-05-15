@@ -97,13 +97,15 @@ var parseMedia = function parseMedia(obj) {
 
   // retrieve video url if video or image url
   var url = obj.video_url || obj.display_url;
+  var thumbnail = obj.display_url;
   var type = obj.is_video ? 'video' : 'image';
   var name = getFileName(url);
 
   return {
     url: url,
     type: type,
-    name: name
+    name: name,
+    thumbnail: thumbnail
   };
 };
 
