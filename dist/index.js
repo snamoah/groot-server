@@ -105,7 +105,6 @@ var parseMedia = function parseMedia(obj) {
     type: type,
     name: name
   };
-
 };
 
 var handleRequest = function handleRequest(url, req, res, next) {
