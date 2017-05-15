@@ -51,7 +51,7 @@ server.post('/download', function (req, res, next) {
 // use default accept parser
 server.use(_restify2.default.CORS({
   'origins': ['*'],
-  'headers': ['Access-Control-Origin-Request-Method', 'Access-Control-Request-Headers']
+  'headers': ['Access-Control-Origin-Request-Method', 'Access-Control-Request-Headers', 'Access-Control-Allow-Origin']
 }));
 
 server.use(_restify2.default.bodyParser());
