@@ -16,38 +16,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var PORT = process.env.PORT || 8080;
 
-<<<<<<< HEAD
-=======
 var DEFAULT_HEADERS = {
   'Access-Control-Allow-Origin': '*'
 };
 
->>>>>>> develop
 // setup server
 var server = _restify2.default.createServer({
   name: 'Groot',
   version: '1.0.0'
 });
 
-<<<<<<< HEAD
-server.use(_restify2.default.bodyParser());
-
-server.post('/download', function (req, res, next) {
-
-  var url = req.body.url;
-
-  (0, _request2.default)(url, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      var json = getJSON(body);
-      var media = getMedia(json);
-
-      res.send(media);
-    } else {
-      console.log(error);
-    }
-    next();
-  });
-=======
 // use default accept parser
 server.use(_restify2.default.CORS({
   'origins': ['*'],
@@ -65,7 +43,6 @@ server.post('/download', function (req, res, next) {
 server.get('/download', function (req, res, next) {
   var url = req.query.url;
   handleRequest(url, req, res, next);
->>>>>>> develop
 });
 
 // server listening on port 8080
@@ -128,8 +105,7 @@ var parseMedia = function parseMedia(obj) {
     type: type,
     name: name
   };
-<<<<<<< HEAD
-=======
+
 };
 
 var handleRequest = function handleRequest(url, req, res, next) {
@@ -144,5 +120,4 @@ var handleRequest = function handleRequest(url, req, res, next) {
     }
     next();
   });
->>>>>>> develop
 };
