@@ -9,7 +9,7 @@
 
 work
 build
-dist
+lib
 pids
 logs
 results
