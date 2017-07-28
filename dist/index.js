@@ -12,7 +12,14 @@ var _cheerio = require('cheerio');
 
 var _cheerio2 = _interopRequireDefault(_cheerio);
 
+var _raven = require('raven');
+
+var _raven2 = _interopRequireDefault(_raven);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_raven2.default.config('https://3d226af42eff4927a6d026a0d639194b:7e10049f8b3e4ea1938076cd705c00af@sentry.io/197200').install();
+_raven2.default.disableConsoleAlerts();
 
 var PORT = process.env.PORT || 8080;
 
@@ -25,6 +32,8 @@ var server = _restify2.default.createServer({
   name: 'Groot',
   version: '1.0.0'
 });
+
+server.use(_raven2.default.requestHandler());
 
 // use default accept parser
 server.use(_restify2.default.CORS({
@@ -48,7 +57,7 @@ server.get('/fetch/file', function (req, res, next) {
 
 server.post('/fetch/file', function (req, res, next) {
   var url = req.body.url;
-  console.log(url);
+  console.log('Url', url);
   handleRequest(url, req, res, next);
 });
 /**
@@ -83,12 +92,8 @@ server.listen(PORT, function () {
 var getJSON = function getJSON(html) {
   var $ = _cheerio2.default.load(html);
   var $body = $('body');
-  console.log($body.html());
   var $script = $body.find('script').eq(0).text();
-  console.log('===========');
-  console.log('Inside JSON', $script);
   var jsonString = $script.slice(21, $script.length - 1);
-  console.log(jsonString);
   return JSON.parse(jsonString);
 };
 
@@ -137,16 +142,9 @@ var parseMedia = function parseMedia(obj) {
 
 var handleRequest = function handleRequest(url, req, res, next) {
   (0, _request2.default)(url, function (error, response, body) {
-    console.log(error, response.statusCode);
     if (!error && response.statusCode == 200) {
       var json = getJSON(body);
-      console.log('==============');
-      console.log('JSON', json);
       var media = getMedia(json);
-
-      console.log('==============');
-      console.log(media);
-
       res.send(media);
     } else {
       console.log(error);
