@@ -1,7 +1,7 @@
 {
   "name": "groot-server",
   "description": "groot server",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": "Samuel Nkoom Amoah <sa.am@programmer.net>",
   "dependencies": {
     "babel-runtime": "^6.20.0",
